@@ -44,40 +44,24 @@
 
   <div id="result"></div>
 
-  <script>
-    async function analyze() {
-      const video = document.getElementById("video").files[0];
-      const quarter = document.getElementById("quarter").value;
+<script>
+  function analyze() {
+    const quarter = document.getElementById("quarter").value;
 
-      if (!video) {
-        alert("Please select a video");
-        return;
-      }
+    const fakeData = {
+      quarter: quarter,
+      summary: "Demo mode — backend coming soon",
+      stats: [
+        { player: "Player 1", points: 6, rebounds: 3, assists: 1 },
+        { player: "Player 2", points: 4, rebounds: 1, assists: 2 },
+        { player: "Player 3", points: 8, rebounds: 2, assists: 0 }
+      ]
+    };
 
-      const formData = new FormData();
-      formData.append("video", video);
-
-      document.getElementById("result").innerText = "Analyzing...";
-
-      try {
-        const response = await fetch(
-          "http://localhost:8000/analyze-quarter?quarter=" + quarter,
-          {
-            method: "POST",
-            body: formData
-          }
-        );
-
-        const data = await response.json();
-        document.getElementById("result").innerText =
-          JSON.stringify(data, null, 2);
-
-      } catch (error) {
-        document.getElementById("result").innerText =
-          "Error: Is the server running?";
-      }
-    }
-  </script>
+    document.getElementById("result").innerText =
+      JSON.stringify(fakeData, null, 2);
+  }
+</script>
 
 </body>
 </html>
