@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HoopVisions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #38bdf8;
+    }
+
+    select, button {
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      background: #38bdf8;
+      border: none;
+      cursor: pointer;
+    }
+
+    pre {
+      background: #020617;
+      padding: 15px;
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>HoopVisions (Demo)</h1>
+
+  <label for="quarter">Select Quarter:</label><br>
+  <select id="quarter">
+    <option value="Q1">Quarter 1</option>
+    <option value="Q2">Quarter 2</option>
+    <option value="Q3">Quarter 3</option>
+    <option value="Q4">Quarter 4</option>
+  </select>
+  <br><br>
+
+  <button onclick="analyze()">Analyze Quarter</button>
+
+  <pre id="result"></pre>
+
+  <script>
+    function analyze() {
+      const quarter = document.getElementById("quarter").value;
+
+      const fakeData = {
+        quarter: quarter,
+        summary: "Demo mode — backend coming soon",
+        stats: [
+          { player: "Player 1", points: 6, rebounds: 3, assists: 1 },
+          { player: "Player 2", points: 4, rebounds: 1, assists: 2 },
+          { player: "Player 3", points: 8, rebounds: 2, assists: 0 }
+        ]
+      };
+
+      document.getElementById("result").innerText =
+        JSON.stringify(fakeData, null, 2);
+    }
+  </script>
+
+</body>
+</html>
