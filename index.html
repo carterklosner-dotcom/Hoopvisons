@@ -2,73 +2,120 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>HoopVisions</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HoopVisions – Stat Simulator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
       background: #0f172a;
       color: white;
+      font-family: Arial, sans-serif;
       padding: 20px;
     }
 
     h1 {
       color: #38bdf8;
+      margin-bottom: 5px;
     }
 
-    select, button {
-      padding: 10px;
+    p {
+      color: #94a3b8;
+      margin-top: 0;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
       margin-top: 10px;
       font-size: 16px;
+      border-radius: 6px;
+      border: none;
     }
 
     button {
       background: #38bdf8;
-      border: none;
+      color: #020617;
+      font-weight: bold;
       cursor: pointer;
     }
 
-    pre {
+    .card {
       background: #020617;
       padding: 15px;
-      margin-top: 20px;
-      overflow-x: auto;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .player {
+      border-bottom: 1px solid #1e293b;
+      padding: 8px 0;
+    }
+
+    .player:last-child {
+      border-bottom: none;
     }
   </style>
 </head>
 <body>
 
-  <h1>HoopVisions (Demo)</h1>
+  <h1>🏀 HoopVisions</h1>
+  <p>High school basketball stat simulator</p>
 
-  <label for="quarter">Select Quarter:</label><br>
+  <input id="teamA" placeholder="Team A name" value="Home Team">
+  <input id="teamB" placeholder="Team B name" value="Away Team">
+
   <select id="quarter">
-    <option value="Q1">Quarter 1</option>
-    <option value="Q2">Quarter 2</option>
-    <option value="Q3">Quarter 3</option>
-    <option value="Q4">Quarter 4</option>
+    <option value="1">Quarter 1</option>
+    <option value="2">Quarter 2</option>
+    <option value="3">Quarter 3</option>
+    <option value="4">Quarter 4</option>
   </select>
-  <br><br>
 
-  <button onclick="analyze()">Analyze Quarter</button>
+  <button onclick="simulate()">Simulate Quarter</button>
 
-  <pre id="result"></pre>
+  <div id="result"></div>
 
   <script>
-    function analyze() {
-      const quarter = document.getElementById("quarter").value;
+    function rand(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-      const fakeData = {
-        quarter: quarter,
-        summary: "Demo mode — backend coming soon",
-        stats: [
-          { player: "Player 1", points: 6, rebounds: 3, assists: 1 },
-          { player: "Player 2", points: 4, rebounds: 1, assists: 2 },
-          { player: "Player 3", points: 8, rebounds: 2, assists: 0 }
-        ]
-      };
+    function simulate() {
+      const q = document.getElementById("quarter").value;
+      const teamA = document.getElementById("teamA").value;
+      const teamB = document.getElementById("teamB").value;
 
-      document.getElementById("result").innerText =
-        JSON.stringify(fakeData, null, 2);
+      const players = [
+        "Player 1", "Player 2", "Player 3", "Player 4", "Player 5"
+      ];
+
+      let html = `
+        <div class="card">
+          <h3>Quarter ${q} Results</h3>
+          <strong>${teamA}</strong>
+      `;
+
+      players.forEach(p => {
+        html += `
+          <div class="player">
+            ${p}: ${rand(2, 8)} pts, ${rand(0, 4)} reb, ${rand(0, 3)} ast
+          </div>
+        `;
+      });
+
+      html += `<br><strong>${teamB}</strong>`;
+
+      players.forEach(p => {
+        html += `
+          <div class="player">
+            ${p}: ${rand(2, 8)} pts, ${rand(0, 4)} reb, ${rand(0, 3)} ast
+          </div>
+        `;
+      });
+
+      html += "</div>";
+
+      document.getElementById("result").innerHTML = html;
     }
   </script>
 
